@@ -1,0 +1,28 @@
+.item-list {
+    display: grid; 
+    grid-template-columns: repeat(2, 250px); 
+    grid-auto-rows: auto; 
+    gap: 20px; 
+    justify-content: center; 
+    padding: 10px;
+}
+  
+.item {
+    background-color: #f0f0f0;
+    padding: 80px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+  
+.item:hover {
+    transform: scale(1.05);
+}
+  
+
+@media (max-width: 600px) {
+    .item-list {
+      grid-template-columns: 1fr; 
+    }
+}

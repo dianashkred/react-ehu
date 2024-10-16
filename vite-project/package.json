@@ -1,0 +1,20 @@
+
+{
+  "name": "react-hw-1",
+  "version": "1.0.0",
+  "description": "React homework 1 project created with Vite",
+  "author": "Diana Shkred",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "vite": "^3.0.0"
+  }
+}

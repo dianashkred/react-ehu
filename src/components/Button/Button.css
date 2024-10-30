@@ -1,0 +1,30 @@
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    background-color: #35B8BE;
+    color: white;
+    transition: background-color 0.3s;
+    font-weight: 400;
+    line-height: 27px;
+    letter-spacing: 0.36px;
+  }
+  
+  .button:hover {
+    background-color: #005a4f;
+  }
+  
+  .inactive {
+    background-color: #f4fcfe;
+    border: 1px solid #DDDDDD;
+    color: #222222;
+    cursor: not-allowed;
+  }
+  
+  .button-group .button {
+    width: 120px;
+  }
+  
+

@@ -1,0 +1,148 @@
+.footer {
+  height: 500px; 
+  padding: 6rem;
+  background-color: #f4fcfe; 
+  position: relative;
+  overflow: hidden;
+  background-image: url('../../assets/background/footer.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-around;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: left;
+  align-items: flex-start;
+  gap: 15rem; 
+}
+
+.footer-logo-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-logo {
+  height: 50px;
+  margin-bottom: 1rem;
+}
+
+.footer-description {
+  color:  #546285;
+  line-height: 1.5;
+  margin-top: 0.5rem;
+  font-size: 16px;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: 0.36px;
+  text-align: start;
+  margin: 0;
+  max-width: 95%;
+}
+
+.footer-links-section {
+  display: flex;
+  gap: 5rem; 
+  flex: 2;
+  justify-content: space-between;
+}
+
+.footer-links-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-heading {
+  color:  #08090A;
+  font-size: 13px;
+  margin-bottom: 1rem; 
+  text-transform: uppercase;
+  line-height: 20px;
+  letter-spacing: 1.5px;
+  font-weight: 400;
+}
+
+.footer-links-group a {
+  color:  #546285;
+  text-decoration: none;
+  line-height: 20px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  margin-bottom: 28px;
+  transition: all 0.2s ease-in;
+}
+
+.footer-links-group a:hover {
+  color: #35B8BE;
+}
+
+.footer-bottom {
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  border-top: 1px solid #ddd;
+  color: #353448;
+  font-size: 0.9rem;
+}
+
+.footer-bottom p {
+  margin: 0; 
+  color: #353448;
+  font-size: 15px;
+  font-family: Inter, sans-serif;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.footer-bottom a {
+  color: #35B8BE;
+  text-decoration: none;
+}
+
+.footer-bottom a:hover {
+  color: #009688;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+
+}
+
+.social-icon-link {
+  width: 40px;
+  height: 40px;
+  opacity: 0.8;
+  border: 1px solid rgba(126, 130, 143, 0.3);
+  border-radius: 50%; /* Ensures icons are circular */
+  transition: background-color 0.3s, transform 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.social-icon img {
+  width: 14px; 
+  height: 14px;
+  opacity: 0.8;
+}
+
+.social-icon:hover {
+  background-color: #d1eef2;
+  transform: scale(1.1);
+  opacity: 1;
+}
+

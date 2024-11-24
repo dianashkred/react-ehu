@@ -1,31 +1,22 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import MenuContent from '../components/MenuContent/MenuContent';
 
-class MenuPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cartCount: 0,
-    };
-  }
+const MenuPage = () => {
+  const [cartCount, setCartCount] = useState(0);
 
-  addToCart = () => {
-    this.setState((prevState) => ({
-      cartCount: prevState.cartCount + 1,
-    }));
+  const addToCart = () => {
+    setCartCount(prevCartCount => prevCartCount + 1);
   };
 
-  render() {
-    return (
-      <div className="menu-page">
-        <Header cartCount={this.state.cartCount} />
-        <MenuContent addToCart={this.addToCart} />
-        <Footer />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="menu-page">
+      <Header cartCount={cartCount} />
+      <MenuContent addToCart={addToCart} />
+      <Footer />
+    </div>
+  );
+};
 
 export default MenuPage;

@@ -47,6 +47,7 @@
     color: #35B8BE;
     line-height: 20px;
     margin-left: 1rem;
+    white-space: nowrap;
   }
   
   .product-description {

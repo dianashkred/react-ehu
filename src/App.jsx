@@ -1,11 +1,11 @@
 import React from 'react';
-import MenuPage from './pages/MenuPage';
 import './App.css';
+import HomePage from './pages/HomePage';
 
 const App = () => {
   return (
     <div className="App">
-      <MenuPage />
+       <HomePage />
     </div>
   );
 };

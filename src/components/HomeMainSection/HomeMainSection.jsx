@@ -26,7 +26,7 @@ const HomeMainSection = () => {
 
 export default HomeMainSection;
 
-/*const Section = styled.section`
+const Section = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -117,4 +117,3 @@ const MainImage = styled.img`
   border-radius: 15px;
   object-fit: cover;
 `;
-*/

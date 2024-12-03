@@ -1,5 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import backgroundHome from '../../assets/background/home.svg';
+import Button from '../Button/Button';
+import trustpilotLogo from '../../assets/icons/trustpilot-logo.svg';
+import foodImage from '/src/assets/images/home_page.png'
 
 const HomeMainSection = () => {
   return (
@@ -9,16 +13,25 @@ const HomeMainSection = () => {
           Beautiful food & takeaway, <Highlight>delivered</Highlight> to your door.
         </Title>
         <Description>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500.
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500.
         </Description>
-        <Button>Place an Order</Button>
-        <Review>
-          <Star>⭐</Star>
-          <ReviewText>4.8 out of 5 based on 2000+ reviews</ReviewText>
-        </Review>
+        <ButtonContainer>
+          <Button
+            label="Place an Order"
+            isActive={true}
+            onClick={() => console.log('Order button clicked')}
+          />
+        </ButtonContainer>
+        <ReviewSection>
+          <TrustpilotLogo src={trustpilotLogo} alt="Trustpilot Logo" />
+          <ReviewDetails>
+            <Rating>4.8 out of 5</Rating> based on 2000+ reviews
+          </ReviewDetails>
+        </ReviewSection>
       </Content>
       <ImageWrapper>
-        <MainImage src="/src/assets/images/home_page.png" alt="Food" />
+        <MainImage src={foodImage} alt="Food and Takeaway" />
       </ImageWrapper>
     </Section>
   );
@@ -30,90 +43,76 @@ const Section = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 60px 20px;
-  flex-wrap: wrap;
+  text-align: left;
+  background-size: cover;
+  background-position: center;
+  background: url(${backgroundHome}) no-repeat  ;
+  padding: 6rem 0 6rem 6rem;
+
 `;
 
 const Content = styled.div`
-  max-width: 50%;
-  @media (max-width: 768px) {
-    max-width: 100%;
-    text-align: center;
-  }
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 20px;
+
 `;
 
 const Title = styled.h1`
-  font-size: 2.5rem;
-  line-height: 1.4;
-  margin-bottom: 20px;
-
-  @media (max-width: 768px) {
-    font-size: 2rem;
-  }
+  font-size: 57px;
+  font-weight: 400;
+  line-height: 60px;
+  font-family: Inter, sans-serif;
 `;
 
 const Highlight = styled.span`
-  color: #00bfa6;
+  color: #35b8be;
 `;
 
 const Description = styled.p`
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #555;
+  color: #546285;
+  font-size: 18px;
+  line-height: 24px;
   margin-bottom: 20px;
 `;
 
-const Button = styled.button`
-  padding: 15px 30px;
-  font-size: 1rem;
-  background-color: #00bfa6;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #009b8a;
-  }
+const ButtonContainer = styled.div`
+  margin-bottom: 2rem;
 `;
 
-const Review = styled.div`
+const ReviewSection = styled.div`
   display: flex;
-  align-items: center;
-  margin-top: 20px;
-
-  @media (max-width: 768px) {
-    justify-content: center;
-  }
+  flex-direction: column;
+  align-items: flex-start;
 `;
 
-const Star = styled.span`
-  font-size: 1.5rem;
-  color: #ffcc00;
-  margin-right: 10px;
+const TrustpilotLogo = styled.img`
+  width: 110px;
+  height: auto;
+  margin-right: 1rem;
 `;
 
-const ReviewText = styled.p`
+const ReviewDetails = styled.div`
+  display: flex;
   font-size: 1rem;
-  color: #555;
+`;
+
+const Rating = styled.span`
+  color: #35b8be;
+  margin-right: 0.5rem;
 `;
 
 const ImageWrapper = styled.div`
-  position: relative;
-  max-width: 45%;
+  flex: 1;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+\  position: relative;
 
-  @media (max-width: 768px) {
-    max-width: 100%;
-    margin-top: 30px;
-  }
 `;
 
 const MainImage = styled.img`
-  width: 100%;
-  border-radius: 15px;
+  height: auto;
   object-fit: cover;
 `;

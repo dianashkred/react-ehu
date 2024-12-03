@@ -8,13 +8,11 @@ import HomeMainSection from '../components/HomeMainSection/HomeMainSection';
 
 const HomePage = () => {
   return (
-    <HomeSection>
+    <>
       <Header />
-      <Main>
-        <HomeMainSection />
-      </Main>
+      <HomeMainSection />
       <Footer />
-    </HomeSection>
+    </>
   );
 };
 

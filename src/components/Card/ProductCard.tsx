@@ -1,10 +1,22 @@
-import React from 'react';
+import { FC } from 'react';
 import Button from '../Button/Button';
 import './ProductCard.css';
 
-const ProductCard = ({ product, addToCart }) => {
+interface Product {
+  image: string;
+  name: string;
+  price: string;
+  description: string;
+}
+
+interface ProductCardProps {
+  product: Product;
+  addToCart?: () => void;
+}
+
+const ProductCard: FC<ProductCardProps> = ({ product, addToCart }) => {
   const handleAddToCart = () => {
-    if (typeof addToCart === 'function') {
+    if (addToCart) {
       addToCart();
     } else {
       console.error('addToCart is not a function');
@@ -23,7 +35,6 @@ const ProductCard = ({ product, addToCart }) => {
         <div className="product-actions">
           <input type="number" defaultValue="1" min="1" readOnly className="quantity-input" />
           <Button
-            className="add-to-cart-button"
             label="Add to cart"
             onClick={handleAddToCart}
           />

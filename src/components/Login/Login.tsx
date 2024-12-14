@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Button from '../Button/Button';
 import { getDatabase, ref, set, onValue } from 'firebase/database';
@@ -19,19 +19,25 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const database = getDatabase(firebaseApp);
 
-function Login() {
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
-  const [users, setUsers] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
+interface User {
+  id: string;
+  login: string;
+  password: string;
+}
+
+const Login: FC = () => {
+  const [login, setLogin] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [users, setUsers] = useState<User[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   useEffect(() => {
     const populateFirebase = async () => {
       try {
         const response = await fetch('https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/orders');
         const data = await response.json();
-        const validUsers = data.filter((user) => user.login && user.password);
-        validUsers.forEach((user) => {
+        const validUsers = data.filter((user: User) => user.login && user.password);
+        validUsers.forEach((user: User) => {
           set(ref(database, `users/${user.id}`), { login: user.login, password: user.password });
         });
       } catch (error) {
@@ -51,7 +57,7 @@ function Login() {
     });
   }, []);
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     const user = users.find((user) => user.login === login && user.password === password);
 
@@ -104,7 +110,9 @@ function Login() {
       </Container>
     </PageContainer>
   );
-}
+};
+
+export default Login;
 
 const PageContainer = styled.div`
   max-width: 1215px;
@@ -175,4 +183,3 @@ const ErrorMessage = styled.p`
   text-align: center;
 `;
 
-export default Login;

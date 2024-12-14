@@ -1,15 +1,12 @@
-import React from 'react';
-//import styled from 'styled-components';
+import React, { FC } from 'react';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import HomeMainSection from '../components/HomeMainSection/HomeMainSection';
-//import backgroundHome from '../assets/background/home.svg';
 
-
-const HomePage = () => {
+const HomePage: FC = () => {
   return (
     <>
-      <Header />
+      <Header cartCount={0} />
       <HomeMainSection />
       <Footer />
     </>
@@ -17,4 +14,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-

@@ -1,11 +1,11 @@
-import React from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 import backgroundHome from '../../assets/background/home.svg';
 import Button from '../Button/Button';
 import trustpilotLogo from '../../assets/icons/trustpilot-logo.svg';
-import foodImage from '/src/assets/images/home_page.png'
+import foodImage from '/src/assets/images/home_page.png';
 
-const HomeMainSection = () => {
+const HomeMainSection: FC = () => {
   return (
     <Section>
       <Content>
@@ -20,6 +20,7 @@ const HomeMainSection = () => {
           <Button
             label="Place an Order"
             isActive={true}
+            style={{ width: '170px' }}
             onClick={() => console.log('Order button clicked')}
           />
         </ButtonContainer>
@@ -39,6 +40,7 @@ const HomeMainSection = () => {
 
 export default HomeMainSection;
 
+//#f4fcfe
 const Section = styled.section`
   display: flex;
   justify-content: space-between;
@@ -48,8 +50,9 @@ const Section = styled.section`
   background-position: center;
   background: url(${backgroundHome}) no-repeat  ;
   padding: 6rem 0 6rem 6rem;
-
 `;
+
+
 
 const Content = styled.div`
   flex: 1;

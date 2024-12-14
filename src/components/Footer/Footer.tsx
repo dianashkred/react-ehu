@@ -1,11 +1,11 @@
-import React from 'react';
+import { FC } from 'react';
 import './FooterStyle.css';
 import logoIcon from '../../assets/icons/logo.svg';
 import instagramIcon from '../../assets/icons/social-instagram.svg';
 import twitterIcon from '../../assets/icons/social-twitter.svg';
 import youtubeIcon from '../../assets/icons/social-youtube.svg';
 
-const Footer = () => {
+const Footer: FC = () => {
   return (
     <footer className="footer">
       <div className="footer-content">

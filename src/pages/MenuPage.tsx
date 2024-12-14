@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import MenuContent from '../components/MenuContent/MenuContent';
 
-const MenuPage = () => {
-  const [cartCount, setCartCount] = useState(0);
+const MenuPage: FC = () => {
+  const [cartCount, setCartCount] = useState<number>(0); // Указываем тип состояния
 
   const addToCart = () => {
-    setCartCount(prevCartCount => prevCartCount + 1);
+    setCartCount((prevCartCount) => prevCartCount + 1);
   };
 
   return (

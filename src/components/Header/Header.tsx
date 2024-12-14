@@ -1,8 +1,12 @@
-import React from 'react';
+import { FC } from 'react';
 import logoIcon from '../../assets/icons/logo.svg';
 import './HeaderStyle.css';
 
-const Header = ({ cartCount }) => {
+interface HeaderProps {
+  cartCount: number;
+}
+
+const Header: FC<HeaderProps> = ({ cartCount }) => {
   return (
     <header className="header">
       <img src={logoIcon} alt="Logo" className="header-logo" />
@@ -21,4 +25,3 @@ const Header = ({ cartCount }) => {
 };
 
 export default Header;
-

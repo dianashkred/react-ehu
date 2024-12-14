@@ -1,19 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import Button from '../Button/Button';
 import ProductCard from '../Card/ProductCard';
 import './MenuContent.css';
 
-const MenuContent = ({ addToCart }) => {
-  const VISIBLE_ITEMS_INCREMENT = 6; 
-  const [menuItems, setMenuItems] = useState([]); 
-  const [visibleItems, setVisibleItems] = useState(VISIBLE_ITEMS_INCREMENT); 
-  const [selectedCategory, setSelectedCategory] = useState('Dessert'); 
-
+interface MenuItem {
+  id: string;
+  name: string;
+  price: string;
+  description: string;
+  image: string;
+  category: string;
+}
+interface MenuContentProps {
+  addToCart: (id: string) => void;
+}
+const MenuContent: FC<MenuContentProps> = ({ addToCart }) => {
+  const VISIBLE_ITEMS_INCREMENT = 6;
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [visibleItems, setVisibleItems] = useState<number>(VISIBLE_ITEMS_INCREMENT);
+  const [selectedCategory, setSelectedCategory] = useState<string>('Dessert');
+  
   useEffect(() => {
     fetch('https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals')
       .then((response) => response.json())
       .then((data) => {
-        const formattedData = data.map((item) => ({
+        const formattedData = data.map((item: any) => ({
           id: item.id,
           name: item.meal,
           price: `$${item.price.toFixed(2)} USD`,
@@ -30,9 +41,9 @@ const MenuContent = ({ addToCart }) => {
     setVisibleItems((prevVisibleItems) => prevVisibleItems + VISIBLE_ITEMS_INCREMENT);
   };
 
-  const handleCategoryChange = (category) => {
+  const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
-    setVisibleItems(VISIBLE_ITEMS_INCREMENT); 
+    setVisibleItems(VISIBLE_ITEMS_INCREMENT);
   };
 
   const filteredItems = menuItems.filter((item) => item.category === selectedCategory);
@@ -78,7 +89,7 @@ const MenuContent = ({ addToCart }) => {
                 description: item.description,
                 image: item.image,
               }}
-              addToCart={() => addToCart(item.id)} 
+              addToCart={() => addToCart(item.id)}
             />
           ))}
         </div>

@@ -1,4 +1,7 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, updateTemporaryQuantity } from '../../features/cart/cartSlice';
+import { RootState } from '../../store';
 import Button from '../Button/Button';
 import './ProductCard.css';
 
@@ -12,20 +15,24 @@ interface Product {
 
 interface ProductCardProps {
   product: Product;
-  addToCart: (quantity: number) => void;
 }
 
-const ProductCard: FC<ProductCardProps> = ({ product, addToCart }) => {
-  const [quantity, setQuantity] = useState<number>(1);
+const ProductCard: FC<ProductCardProps> = ({ product }) => {
+  const dispatch = useDispatch();
+  
+  const quantity = useSelector(
+    (state: RootState) =>
+      state.cart.temporaryQuantities[product.id] || 1 // По умолчанию 1
+  );
 
-  const handleAddToCart = () => {
-    if (addToCart) {
-      addToCart(quantity);
-    } else {
-      console.error('addToCart is not a function');
-    }
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Math.max(Number(e.target.value), 1); // Минимум 1
+    dispatch(updateTemporaryQuantity({ id: product.id, quantity: value }));
   };
 
+  const handleAddToCart = () => {
+    dispatch(addToCart({ id: product.id, quantity })); // Используем временное количество
+  };
   return (
     <div className="product-card">
       <img src={product.image} alt={product.name} className="product-image" />
@@ -36,17 +43,16 @@ const ProductCard: FC<ProductCardProps> = ({ product, addToCart }) => {
         </div>
         <p className="product-description">{product.description}</p>
         <div className="product-actions">
-          
           <input
             type="number"
-            value={quantity}
+            value={quantity} 
             min="1"
-            onChange={(e) => setQuantity(Number(e.target.value))}
             className="quantity-input"
-            />
+            onChange={handleQuantityChange}
+          />
 
           <Button
-            label="Add to cart"
+            label="Add to card"
             onClick={handleAddToCart}
           />
         </div>

@@ -1,22 +1,74 @@
-import  { FC, useState, useEffect } from 'react';
+import  { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import type { AppDispatch, RootState } from '../../store';
+import { fetchMenuItems, setVisibleItems, setSelectedCategory } from '../../features/menu/menuSlice';
 import Button from '../Button/Button';
 import ProductCard from '../Card/ProductCard';
 import './MenuContent.css';
 
-interface MenuItem {
-  id: string;
-  name: string;
-  price: string;
-  description: string;
-  image: string;
-  category: string;
-}
-interface MenuContentProps {
-  addToCart: (id: string, quantity: number) => void;
-}
-//const VISIBLE_ITEMS_INCREMENT = 6;
 
-const MenuContent: FC<MenuContentProps> = ({ addToCart }) => {
+const MenuContent: FC = () => {
+  const dispatch: AppDispatch = useDispatch();
+  const { items, categories, selectedCategory, visibleItems, status } = useSelector(
+    (state: RootState) => state.menu
+  );
+
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchMenuItems());
+    }
+  }, [status, dispatch]);
+
+  const filteredItems = items.filter((item) => item.category === selectedCategory);
+  return (
+    <div className="menu-section">
+      <main>
+        <h2 className="text-h2">Browse our menu</h2>
+        <p className="text-p">
+          Use our menu to place an order online, or{' '}
+          <span className="tooltip">
+            phone
+            <span className="tooltip-text">+123-456-7890</span>
+          </span>{' '}
+          our store <br /> to place a pickup order.
+        </p>
+      <div className="button-group">
+        {categories.map((category) => (
+          <Button
+            key={category}
+            label={category}
+            isActive={selectedCategory !== category}
+            onClick={() => dispatch(setSelectedCategory(category))}
+          />
+        ))}
+      </div>
+      <div className="menu-list">
+        {filteredItems.slice(0, visibleItems).map((item) => (
+          <ProductCard key={item.id} product={item} />
+        ))}
+      </div>
+      {visibleItems < filteredItems.length && (
+        <Button label="See more" 
+          onClick={() => dispatch(setVisibleItems(visibleItems + 6))} 
+        />
+      )}
+      </main>
+    </div>
+  );
+};
+
+export default MenuContent;
+
+
+
+
+
+
+
+
+
+
+/*onst MenuContent: FC<MenuContentProps> = ({ addToCart }) => {
   const VISIBLE_ITEMS_INCREMENT = 6;
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [visibleItems, setVisibleItems] = useState<number>(VISIBLE_ITEMS_INCREMENT);
@@ -103,3 +155,4 @@ const MenuContent: FC<MenuContentProps> = ({ addToCart }) => {
 };
 
 export default MenuContent;
+*/

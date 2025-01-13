@@ -1,12 +1,13 @@
 import { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 import logoIcon from '../../assets/icons/logo.svg';
 import './HeaderStyle.css';
 
-interface HeaderProps {
-  cartCount: number;
-}
 
-const Header: FC<HeaderProps> = ({ cartCount }) => {
+const Header: FC = () => {
+  const cartCount = useSelector((state: RootState) => state.cart.totalQuantity);
+
   return (
     <header className="header">
       <img src={logoIcon} alt="Logo" className="header-logo" />

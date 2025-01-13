@@ -1,13 +1,14 @@
 import React, { FC, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import HomeMainSection from '../components/HomeMainSection/HomeMainSection';
-import { useUser } from '../context/UserContext';
+//import { useUser } from '../context/UserContext';
+
 
 const HomePage: FC = () => {
-
-
-  /*const { isLoggedIn } = useUser();
+  /*const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn)
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -17,11 +18,11 @@ const HomePage: FC = () => {
 
   if (!isLoggedIn) {
     return <div>Access denied. Please log in.</div>;
-  }*/
-
+  }
+*/
   return (
     <>
-      <Header cartCount={0} />
+      <Header />
       <HomeMainSection />
       <Footer />
     </>

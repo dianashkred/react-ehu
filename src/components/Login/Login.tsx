@@ -1,66 +1,30 @@
 import React, { FC, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Button from '../Button/Button';
-import { useUser } from '../../context/UserContext';
-import { ref, set, onValue, get } from 'firebase/database';
-import { database } from '../../data/firebase';
-
-
-interface User {
-  id: string;
-  login: string;
-  password: string;
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, AppDispatch } from '../../store';
+import { login, updateUsername, updatePassword, setErrorMessage } from '../../features/user/userSlice';
+import { fetchUsers } from '../../features/firebase/firebaseSlice';
 
 const Login: FC = () => {
-  const { login } = useUser();
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [users, setUsers] = useState<User[]>([]);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const dispatch: AppDispatch = useDispatch();
+  const { users, status } = useSelector((state: RootState) => state.firebase);
+  const username = useSelector((state: RootState) => state.user.username);
+  const password = useSelector((state: RootState) => state.user.password);
+  const errorMessage = useSelector((state: RootState) => state.user.errorMessage);
 
   useEffect(() => {
-    const populateFirebase = async () => {
-      try {
-        const response = await fetch('https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/orders');
-        const data = await response.json();
-        const usersRef = ref(database, 'users');
-        const snapshot = await get(usersRef);
-        const existingUsers = snapshot.val() || {};
-
-        const validUsers = data.filter((user: User) => user.login && user.password);
-        const newUsers = validUsers.filter((user: User) => !existingUsers[user.id]);
-        
-        newUsers.forEach((user: User) => {
-          set(ref(database, `users/${user.id}`), { login: user.login, password: user.password });
-        });
+    if (status === 'idle') {
+      dispatch(fetchUsers());
+    }
+  }, [dispatch, status]);
   
-        console.log('Firebase updated with new users:', newUsers);
-      } catch (error) {
-        console.error('Error populating Firebase:', error);
-      }
-    };
-  
-    populateFirebase();
-  }, []);
-  
-
-  //// Downloading users from Firebase
-  useEffect(() => {
-    const usersRef = ref(database, 'users');
-    onValue(usersRef, (snapshot) => {
-      const data = snapshot.val();
-      const userList = data ? Object.keys(data).map((key) => ({ id: key, ...data[key] })) : [];
-      setUsers(userList);
-    });
-  }, []);
-
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    const user = users.find((user) => user.login === username && user.password === password);
+     const user = users.find((user: { login: string; password: string }) => user.login === username && user.password === password);
 
     if (user) {
-      login(user.login);
+      dispatch(login({ username: user.login }));
       alert(`Login successful for ${username}`);
       window.location.href = '/';
     } else {
@@ -79,7 +43,7 @@ const Login: FC = () => {
               type="text"
               id="username"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => dispatch(updateUsername(e.target.value))}
             />
           </FormGroup>
           <FormGroup>
@@ -88,7 +52,7 @@ const Login: FC = () => {
               type="password"
               id="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => dispatch(updatePassword(e.target.value))}
             />
           </FormGroup>
           {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}

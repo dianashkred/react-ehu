@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "type-check": "tsc --noEmit"
-  },
+    },
   "dependencies": {
     "firebase": "^11.0.2",
     "normalize.css": "^8.0.1",

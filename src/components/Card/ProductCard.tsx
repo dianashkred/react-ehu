@@ -1,8 +1,9 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Button from '../Button/Button';
 import './ProductCard.css';
 
 interface Product {
+  id: string;
   image: string;
   name: string;
   price: string;
@@ -11,13 +12,15 @@ interface Product {
 
 interface ProductCardProps {
   product: Product;
-  addToCart?: () => void;
+  addToCart: (quantity: number) => void;
 }
 
 const ProductCard: FC<ProductCardProps> = ({ product, addToCart }) => {
+  const [quantity, setQuantity] = useState<number>(1);
+
   const handleAddToCart = () => {
     if (addToCart) {
-      addToCart();
+      addToCart(quantity);
     } else {
       console.error('addToCart is not a function');
     }
@@ -33,7 +36,15 @@ const ProductCard: FC<ProductCardProps> = ({ product, addToCart }) => {
         </div>
         <p className="product-description">{product.description}</p>
         <div className="product-actions">
-          <input type="number" defaultValue="1" min="1" readOnly className="quantity-input" />
+          
+          <input
+            type="number"
+            value={quantity}
+            min="1"
+            onChange={(e) => setQuantity(Number(e.target.value))}
+            className="quantity-input"
+            />
+
           <Button
             label="Add to cart"
             onClick={handleAddToCart}

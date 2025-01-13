@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import  { FC, useState, useEffect } from 'react';
 import Button from '../Button/Button';
 import ProductCard from '../Card/ProductCard';
 import './MenuContent.css';
@@ -12,18 +12,21 @@ interface MenuItem {
   category: string;
 }
 interface MenuContentProps {
-  addToCart: (id: string) => void;
+  addToCart: (id: string, quantity: number) => void;
 }
+//const VISIBLE_ITEMS_INCREMENT = 6;
+
 const MenuContent: FC<MenuContentProps> = ({ addToCart }) => {
   const VISIBLE_ITEMS_INCREMENT = 6;
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [visibleItems, setVisibleItems] = useState<number>(VISIBLE_ITEMS_INCREMENT);
   const [selectedCategory, setSelectedCategory] = useState<string>('Dessert');
+  const [categories, setCategories] = useState<string[]>([]);
   
   useEffect(() => {
     fetch('https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals')
       .then((response) => response.json())
-      .then((data) => {
+      .then((data: MenuItem[]) => {
         const formattedData = data.map((item: any) => ({
           id: item.id,
           name: item.meal,
@@ -33,6 +36,9 @@ const MenuContent: FC<MenuContentProps> = ({ addToCart }) => {
           category: item.category,
         }));
         setMenuItems(formattedData);
+        const uniqueCategories = Array.from(new Set(formattedData.map((item) => item.category)));
+        setCategories(uniqueCategories);
+        setSelectedCategory(uniqueCategories[0] || ''); 
       })
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
@@ -62,37 +68,27 @@ const MenuContent: FC<MenuContentProps> = ({ addToCart }) => {
         </p>
 
         <div className="button-group">
-          <Button
-            label="Dessert"
-            isActive={selectedCategory !== 'Dessert'}
-            onClick={() => handleCategoryChange('Dessert')}
-          />
-          <Button
-            label="Dinner"
-            isActive={selectedCategory !== 'Dinner'}
-            onClick={() => handleCategoryChange('Dinner')}
-          />
-          <Button
-            label="Breakfast"
-            isActive={selectedCategory !== 'Breakfast'}
-            onClick={() => handleCategoryChange('Breakfast')}
-          />
+        {categories.map((category) => (
+        <Button
+              key={category}
+              label={category}
+              isActive={selectedCategory !== category}
+              onClick={() => handleCategoryChange(category)}
+            />
+          ))}
         </div>
 
         <div className="menu-list">
           {filteredItems.slice(0, visibleItems).map((item) => (
             <ProductCard
               key={item.id}
-              product={{
-                name: item.name,
-                price: item.price,
-                description: item.description,
-                image: item.image,
-              }}
-              addToCart={() => addToCart(item.id)}
+              product={item}
+              addToCart={(quantity)=> addToCart(item.id, quantity)}
             />
           ))}
         </div>
+            
+          
 
         {visibleItems < filteredItems.length && (
           <Button

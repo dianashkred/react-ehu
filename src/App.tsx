@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import './App.css';
-import HomePage from './pages/HomePage';
+import MenuPage from './pages/MenuPage';
 //HomePage LoginPage MenuPage
 const App: FC = () => {
   return (
     <div className="App">
-      <HomePage />
+      <MenuPage />
     </div>
   );
 };

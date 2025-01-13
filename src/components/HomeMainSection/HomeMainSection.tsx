@@ -111,7 +111,7 @@ const ImageWrapper = styled.div`
   flex: 1;
   display: flex;
   justify-content: flex-end;
-\  position: relative;
+  position: relative;
 
 `;
 

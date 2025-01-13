@@ -1,11 +1,38 @@
 import React, { FC, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Button from '../Button/Button';
-import { getDatabase, ref, set, onValue } from 'firebase/database';
-import { initializeApp } from 'firebase/app';
+import { useUser } from '../../context/UserContext';
+import { ref, set, onValue, get } from 'firebase/database';
+import { database } from '../../data/firebase';
+//import { initializeApp } from 'firebase/app';
+//import { getDatabase } from 'firebase/database';
+
+
+// Firebase Configuration - moved to environment variables
+/*const firebaseConfig = {
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+};*/
+
+/*const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+};*/
 
 // Firebase Configuration
-const firebaseConfig = {
+/*const firebaseConfig = {
   apiKey: "AIzaSyCS1ZgmagWnYny-g_NFwM8r_MqiHI_F31k",
   authDomain: "reacr-esde.firebaseapp.com",
   databaseURL: "https://reacr-esde-default-rtdb.europe-west1.firebasedatabase.app/",
@@ -14,10 +41,10 @@ const firebaseConfig = {
   messagingSenderId: "181081983087",
   appId: "1:181081983087:web:3e664da57900e5631de59a",
   measurementId: "G-LP27H7XMKZ"
-};
+};*/
 
-const firebaseApp = initializeApp(firebaseConfig);
-const database = getDatabase(firebaseApp);
+//const firebaseApp = initializeApp(firebaseConfig);
+//const database = getDatabase(firebaseApp);
 
 interface User {
   id: string;
@@ -26,7 +53,8 @@ interface User {
 }
 
 const Login: FC = () => {
-  const [login, setLogin] = useState<string>('');
+  const { login } = useUser();
+  const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [users, setUsers] = useState<User[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -36,18 +64,28 @@ const Login: FC = () => {
       try {
         const response = await fetch('https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/orders');
         const data = await response.json();
+        const usersRef = ref(database, 'users');
+        const snapshot = await get(usersRef);
+        const existingUsers = snapshot.val() || {};
+
         const validUsers = data.filter((user: User) => user.login && user.password);
-        validUsers.forEach((user: User) => {
+        const newUsers = validUsers.filter((user: User) => !existingUsers[user.id]);
+        
+        newUsers.forEach((user: User) => {
           set(ref(database, `users/${user.id}`), { login: user.login, password: user.password });
         });
+  
+        console.log('Firebase updated with new users:', newUsers);
       } catch (error) {
         console.error('Error populating Firebase:', error);
       }
     };
-
+  
     populateFirebase();
   }, []);
+  
 
+  //// Downloading users from Firebase
   useEffect(() => {
     const usersRef = ref(database, 'users');
     onValue(usersRef, (snapshot) => {
@@ -59,10 +97,11 @@ const Login: FC = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    const user = users.find((user) => user.login === login && user.password === password);
+    const user = users.find((user) => user.login === username && user.password === password);
 
     if (user) {
-      alert('Login successful!');
+      login(user.login);
+      alert(`Login successful for ${username}`);
       window.location.href = '/';
     } else {
       setErrorMessage('Invalid login or password');
@@ -78,9 +117,9 @@ const Login: FC = () => {
             <Label htmlFor="login">User name</Label>
             <Input
               type="text"
-              id="login"
-              value={login}
-              onChange={(e) => setLogin(e.target.value)}
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </FormGroup>
           <FormGroup>

@@ -16,9 +16,6 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const database = getDatabase(firebaseApp);
 
-if (!import.meta.env.VITE_FIREBASE_API_KEY) {
-    throw new Error("Missing VITE_FIREBASE_API_KEY in environment variables");
-  }
   
 
 export { firebaseApp, database };

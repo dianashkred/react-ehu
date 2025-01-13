@@ -4,47 +4,7 @@ import Button from '../Button/Button';
 import { useUser } from '../../context/UserContext';
 import { ref, set, onValue, get } from 'firebase/database';
 import { database } from '../../data/firebase';
-//import { initializeApp } from 'firebase/app';
-//import { getDatabase } from 'firebase/database';
 
-
-// Firebase Configuration - moved to environment variables
-/*const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
-};*/
-
-/*const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
-};*/
-
-// Firebase Configuration
-/*const firebaseConfig = {
-  apiKey: "AIzaSyCS1ZgmagWnYny-g_NFwM8r_MqiHI_F31k",
-  authDomain: "reacr-esde.firebaseapp.com",
-  databaseURL: "https://reacr-esde-default-rtdb.europe-west1.firebasedatabase.app/",
-  projectId: "reacr-esde",
-  storageBucket: "reacr-esde.firebasestorage.app",
-  messagingSenderId: "181081983087",
-  appId: "1:181081983087:web:3e664da57900e5631de59a",
-  measurementId: "G-LP27H7XMKZ"
-};*/
-
-//const firebaseApp = initializeApp(firebaseConfig);
-//const database = getDatabase(firebaseApp);
 
 interface User {
   id: string;

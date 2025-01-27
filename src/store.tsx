@@ -3,6 +3,7 @@ import menuReducer from './features/menu/menuSlice';
 import userReducer from './features/user/userSlice';
 import firebaseReducer from './features/firebase/firebaseSlice';
 import cartReducer from './features/cart/cartSlice';
+import orderReducer from './features/order/orderSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     menu: menuReducer,
     user: userReducer,
     firebase: firebaseReducer,
+    order: orderReducer,
   },
 });
 

@@ -1,18 +1,19 @@
 import React, { FC } from 'react';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
-import MenuContent from '../components/MenuContent/MenuContent';
+import OrderMainSection from '../components/Order/OrderMainSection';
 
 
-const MenuPage: FC = () => {
+const OrderPage: FC = () => {
+
 
   return (
-    <div className="menu-page">
+    <div className="order-page">
       <Header />
-      <MenuContent />
+      <OrderMainSection />
       <Footer />
     </div>
   );
 };
 
-export default MenuPage;
+export default OrderPage;

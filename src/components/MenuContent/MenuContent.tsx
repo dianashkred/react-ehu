@@ -1,11 +1,81 @@
-import  { FC, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 import type { AppDispatch, RootState } from '../../store';
 import { fetchMenuItems, setVisibleItems, setSelectedCategory } from '../../features/menu/menuSlice';
 import Button from '../Button/Button';
 import ProductCard from '../Card/ProductCard';
-import './MenuContent.css';
 
+const MenuSection = styled.div`
+  font-family: Inter, sans-serif;
+  background-image: url('src/assets/background/menu.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 2rem 0;
+  text-align: center;
+`;
+
+const Heading = styled.h2`
+  color: #35b8be;
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 55px;
+  letter-spacing: 1.65px;
+  margin-top: 5rem;
+`;
+
+const Paragraph = styled.p`
+  color: #546285;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 27px;
+  letter-spacing: 0.36px;
+`;
+
+const Tooltip = styled.span`
+  position: relative;
+  cursor: pointer;
+  color: #35b8be;
+  font-weight: 400;
+  font-size: 16px;
+
+  & .tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: #35b8be;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  &:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 30px 0;
+`;
+
+const MenuList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 40px;
+`;
 
 const MenuContent: FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -20,139 +90,43 @@ const MenuContent: FC = () => {
   }, [status, dispatch]);
 
   const filteredItems = items.filter((item) => item.category === selectedCategory);
-  return (
-    <div className="menu-section">
-      <main>
-        <h2 className="text-h2">Browse our menu</h2>
-        <p className="text-p">
-          Use our menu to place an order online, or{' '}
-          <span className="tooltip">
-            phone
-            <span className="tooltip-text">+123-456-7890</span>
-          </span>{' '}
-          our store <br /> to place a pickup order.
-        </p>
-      <div className="button-group">
-        {categories.map((category) => (
-          <Button
-            key={category}
-            label={category}
-            isActive={selectedCategory !== category}
-            onClick={() => dispatch(setSelectedCategory(category))}
-          />
-        ))}
-      </div>
-      <div className="menu-list">
-        {filteredItems.slice(0, visibleItems).map((item) => (
-          <ProductCard key={item.id} product={item} />
-        ))}
-      </div>
-      {visibleItems < filteredItems.length && (
-        <Button label="See more" 
-          onClick={() => dispatch(setVisibleItems(visibleItems + 6))} 
-        />
-      )}
-      </main>
-    </div>
-  );
-};
-
-export default MenuContent;
-
-
-
-
-
-
-
-
-
-
-/*onst MenuContent: FC<MenuContentProps> = ({ addToCart }) => {
-  const VISIBLE_ITEMS_INCREMENT = 6;
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-  const [visibleItems, setVisibleItems] = useState<number>(VISIBLE_ITEMS_INCREMENT);
-  const [selectedCategory, setSelectedCategory] = useState<string>('Dessert');
-  const [categories, setCategories] = useState<string[]>([]);
-  
-  useEffect(() => {
-    fetch('https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals')
-      .then((response) => response.json())
-      .then((data: MenuItem[]) => {
-        const formattedData = data.map((item: any) => ({
-          id: item.id,
-          name: item.meal,
-          price: `$${item.price.toFixed(2)} USD`,
-          description: item.instructions.substring(0, 100) + '...',
-          image: item.img,
-          category: item.category,
-        }));
-        setMenuItems(formattedData);
-        const uniqueCategories = Array.from(new Set(formattedData.map((item) => item.category)));
-        setCategories(uniqueCategories);
-        setSelectedCategory(uniqueCategories[0] || ''); 
-      })
-      .catch((error) => console.error('Error fetching data:', error));
-  }, []);
-
-  const handleSeeMore = () => {
-    setVisibleItems((prevVisibleItems) => prevVisibleItems + VISIBLE_ITEMS_INCREMENT);
-  };
-
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category);
-    setVisibleItems(VISIBLE_ITEMS_INCREMENT);
-  };
-
-  const filteredItems = menuItems.filter((item) => item.category === selectedCategory);
 
   return (
-    <div className="menu-section">
+    <MenuSection>
       <main>
-        <h2 className="text-h2">Browse our menu</h2>
-        <p className="text-p">
+        <Heading>Browse our menu</Heading>
+        <Paragraph>
           Use our menu to place an order online, or{' '}
-          <span className="tooltip">
+          <Tooltip>
             phone
             <span className="tooltip-text">+123-456-7890</span>
-          </span>{' '}
+          </Tooltip>{' '}
           our store <br /> to place a pickup order.
-        </p>
-
-        <div className="button-group">
-        {categories.map((category) => (
-        <Button
+        </Paragraph>
+        <ButtonGroup>
+          {categories.map((category) => (
+            <Button
               key={category}
               label={category}
               isActive={selectedCategory !== category}
-              onClick={() => handleCategoryChange(category)}
+              onClick={() => dispatch(setSelectedCategory(category))}
             />
           ))}
-        </div>
-
-        <div className="menu-list">
+        </ButtonGroup>
+        <MenuList>
           {filteredItems.slice(0, visibleItems).map((item) => (
-            <ProductCard
-              key={item.id}
-              product={item}
-              addToCart={(quantity)=> addToCart(item.id, quantity)}
-            />
+            <ProductCard key={item.id} product={item} />
           ))}
-        </div>
-            
-          
-
+        </MenuList>
         {visibleItems < filteredItems.length && (
           <Button
-            className="see-more-button"
             label="See more"
-            onClick={handleSeeMore}
+            onClick={() => dispatch(setVisibleItems(visibleItems + 6))}
           />
         )}
       </main>
-    </div>
+    </MenuSection>
   );
 };
 
 export default MenuContent;
-*/

@@ -19,9 +19,10 @@ const HomeMainSection: FC = () => {
         <ButtonContainer>
           <Button
             label="Place an Order"
+            to="/menu"
             isActive={true}
             style={{ width: '170px' }}
-            onClick={() => console.log('Order button clicked')}
+            //onClick={() => console.log('Order button clicked')}
           />
         </ButtonContainer>
         <ReviewSection>
@@ -51,8 +52,6 @@ const Section = styled.section`
   background: url(${backgroundHome}) no-repeat  ;
   padding: 6rem 0 6rem 6rem;
 `;
-
-
 
 const Content = styled.div`
   flex: 1;

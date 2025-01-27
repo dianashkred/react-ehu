@@ -1,36 +1,38 @@
-import React, { FC, useState, useEffect } from 'react';
-import styled from 'styled-components';
-import Button from '../Button/Button';
+import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { RootState, AppDispatch } from '../../store';
 import { login, updateUsername, updatePassword, setErrorMessage } from '../../features/user/userSlice';
 import { fetchUsers } from '../../features/firebase/firebaseSlice';
+import styled from 'styled-components';
+import Button from '../Button/Button';
 
 const Login: FC = () => {
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
+  
   const { users, status } = useSelector((state: RootState) => state.firebase);
-  const username = useSelector((state: RootState) => state.user.username);
-  const password = useSelector((state: RootState) => state.user.password);
-  const errorMessage = useSelector((state: RootState) => state.user.errorMessage);
+ 
+  const { username, password, errorMessage } = useSelector((state: RootState) => state.user);
+  const user = users.find((user: { login: string; password: string }) => user.login === username && user.password === password);
+
 
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchUsers());
     }
   }, [dispatch, status]);
-  
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-     const user = users.find((user: { login: string; password: string }) => user.login === username && user.password === password);
-
     if (user) {
-      dispatch(login({ username: user.login }));
-      alert(`Login successful for ${username}`);
-      window.location.href = '/';
+      dispatch(login({ username}));
+      navigate('/order');
     } else {
-      setErrorMessage('Invalid login or password');
+      dispatch(setErrorMessage('Invalid username or password'));
     }
   };
+  
 
   return (
     <PageContainer>
@@ -83,17 +85,16 @@ const PageContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f4fcfe;
+  background-image: url('src/assets/background/menu.svg');
   padding: 150px;
-  clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
 
 `;
 
 const PageTitle = styled.h1`
-  font-size: 32px;
-  font-weight: bold;
+  font-size: 50px;
+  font-weight: 400;
+  font-family: Inter, sans-serif;
   color: #4cafb4;
-  margin-bottom: 20px;
 `;
 
 const Container = styled.div`
@@ -113,7 +114,6 @@ const Form = styled.form`
 
 const FormGroup = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-around;
   margin-bottom: 15px;
 `;

@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import styled from 'styled-components';
-import backgroundHome from '../../assets/background/home.svg';
 import Button from '../Button/Button';
 import trustpilotLogo from '../../assets/icons/trustpilot-logo.svg';
 import foodImage from '/src/assets/images/home_page.png';
@@ -49,8 +48,9 @@ const Section = styled.section`
   text-align: left;
   background-size: cover;
   background-position: center;
-  background: url(${backgroundHome}) no-repeat  ;
+  background-image: var(--background-home);
   padding: 6rem 0 6rem 6rem;
+  height: 820px;
 `;
 
 const Content = styled.div`
@@ -58,8 +58,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-right: 20px;
-
+  padding-left: 40px;
 `;
 
 const Title = styled.h1`
@@ -67,17 +66,20 @@ const Title = styled.h1`
   font-weight: 400;
   line-height: 60px;
   font-family: Inter, sans-serif;
+  width: 560px;
+  color: var(--text-color-black);
 `;
 
 const Highlight = styled.span`
-  color: #35b8be;
+  color: var(--text-color-turquoise);
 `;
 
 const Description = styled.p`
-  color: #546285;
+  color: var(--text-color);
   font-size: 18px;
   line-height: 24px;
   margin-bottom: 20px;
+  width: 490px;
 `;
 
 const ButtonContainer = styled.div`
@@ -102,7 +104,7 @@ const ReviewDetails = styled.div`
 `;
 
 const Rating = styled.span`
-  color: #35b8be;
+  color: var(--text-color-turquoise);
   margin-right: 0.5rem;
 `;
 

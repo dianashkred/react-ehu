@@ -80,28 +80,26 @@ const Login: FC = () => {
 export default Login;
 
 const PageContainer = styled.div`
-  max-width: 1215px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url('src/assets/background/menu.svg');
+  background-image: var( --background-mlo);
   padding: 150px;
-
 `;
 
 const PageTitle = styled.h1`
   font-size: 50px;
   font-weight: 400;
   font-family: Inter, sans-serif;
-  color: #4cafb4;
+  color: var(--text-color-turquoise);
 `;
 
 const Container = styled.div`
   width: 600px;
   padding: 30px;
   border-radius: 10px;
-  background-color: #ffffff;
+  background-color: var(--background-color);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(53, 184, 190, 0.15);     
 `;
@@ -121,7 +119,7 @@ const FormGroup = styled.div`
 const Label = styled.label`
   font-size: 16px;
   font-weight: 500;
-  color: #333;
+  color: var(--text-color-black);
   text-align: right;
   margin-right: 10px;
 `;

@@ -8,15 +8,16 @@ import ProductCard from '../Card/ProductCard';
 
 const MenuSection = styled.div`
   font-family: Inter, sans-serif;
-  background-image: url('src/assets/background/menu.svg');
+  background-image:  var(--background-mlo);
   background-size: cover;
   background-repeat: no-repeat;
   padding: 2rem 0;
   text-align: center;
+  color: var(--text-color);
 `;
 
 const Heading = styled.h2`
-  color: #35b8be;
+  color: var(--text-color-turquoise);
   font-size: 50px;
   font-weight: 400;
   line-height: 55px;
@@ -25,7 +26,7 @@ const Heading = styled.h2`
 `;
 
 const Paragraph = styled.p`
-  color: #546285;
+  color:  var(--text-color);
   font-weight: 400;
   font-size: 16px;
   line-height: 27px;
@@ -35,14 +36,14 @@ const Paragraph = styled.p`
 const Tooltip = styled.span`
   position: relative;
   cursor: pointer;
-  color: #35b8be;
+  color: var(--text-color-turquoise);
   font-weight: 400;
   font-size: 16px;
 
   & .tooltip-text {
     visibility: hidden;
     width: 120px;
-    background-color: #35b8be;
+    background-color: var(--background-color-turquoise);
     color: #fff;
     text-align: center;
     border-radius: 5px;

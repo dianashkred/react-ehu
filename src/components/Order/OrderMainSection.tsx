@@ -65,7 +65,7 @@ const OrderMainSection: FC = () => {
               <ItemName>{item.name}</ItemName>
               </ItemDetails>
               <ItemPrice>
-              {item.totalItemPrice.toFixed(2)} USD
+              $ {item.totalItemPrice.toFixed(2)} USD
               </ItemPrice>
               <ItemActions>
 
@@ -121,48 +121,57 @@ export default OrderMainSection;
 const EmptyCartContainer = styled.div`
   text-align: center;
   padding: 4rem;
-  background-color: #f4fcfe;
+  background-image: var(--background-mlo);
+  height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const EmptyCartMessage = styled.p`
   font-size: 1.5rem;
   font-weight: 500;
-  color: #546285;
+  color: var(--text-color);
   margin-bottom: 2rem;
 `;
 
 const MenuLink = styled(Link)`
   font-size: 1.2rem;
-  color: #35b8be;
+  color: var(--text-color-turquoise);
   text-decoration: none;
   font-weight: bold;
 
   &:hover {
-    color: #009688;
+    color:var(--text-color-turquoise);
   }
 `;
 const OrderPlacedContainer = styled.div`
   text-align: center;
   padding: 4rem;
-  background-color: #f4fcfe;
+  background-image: var(--background-mlo);
+  height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
 `;
 const OrderPlacedMessage = styled.p`
   font-size: 1.5rem;
   font-weight: 500;
-  color: #546285;
+  color: var(--text-color);
   margin-bottom: 2rem;
 `;
 
 const OrderPageContainer = styled.main`
   padding: 4rem 4rem;
-  background-image: url('src/assets/background/menu.svg');
+  background-image: var( --background-mlo);
   text-align: center;
 `;
 
 const Title = styled.h1`
   font-size: 50px;
   font-weight: 400;
-  color: #35b8be;
+  color: var(--text-color-turquoise);
   margin-top: 5rem;
 `;
 
@@ -178,7 +187,7 @@ const OrderItem = styled.div`
   border: 1px solid rgba(53, 184, 190, 0.15);
   border-radius: 5px;
   margin-bottom: 1.5rem;
-  background-color: #ffffff;
+  background-color: var(--background-color);
 `;
 
 const ItemImage = styled.img`
@@ -193,8 +202,11 @@ const ItemDetails = styled.div`
 `;
 
 const ItemName = styled.h3`
-  font-size: 1.2rem;
-  color: #333;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.6;
+  color: var(--text-color-black);
   margin-bottom: 0.5rem;
 `;
 const ItemActions = styled.div`
@@ -205,7 +217,11 @@ const ItemActions = styled.div`
 `;
 
 const ItemPrice = styled.span`
-  color: #35b8be;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  margin-left: 1rem;
+  color: var(--background-color-turquoise);
   font-size: 1.1rem;
   margin-right: 40px;
 `;
@@ -239,7 +255,7 @@ const OrderForm = styled.form`
 const Label = styled.label`
   font-size: 16px;
   font-weight: 500;
-  color: #333;
+  color: var(--text-color-black);
   text-align: right;
   margin-right: 10px;
 `;

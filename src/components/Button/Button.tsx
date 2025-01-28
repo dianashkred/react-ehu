@@ -19,21 +19,21 @@ const StyledButton = styled.button`
   cursor: pointer;
   border-radius: 5px;
   border: none;
-  background-color: #35b8be;
-  color: white;
+  background-color: var(--button-bg-color);
+  color: var(--button-ac-text-color);
   transition: background-color 0.3s;
   font-weight: 400;
   line-height: 27px;
   letter-spacing: 0.36px;
 
   &:hover {
-    background-color: #005a4f;
+    background-color: var(--button-bg-hover-color);
   }
 
   &.inactive {
-    background-color: #ffffff;
-    border: 1px solid #dddddd;
-    color: #222222;
+    background-color: transparent;
+    border: var(--border-botton-inac);
+    color: var(--button-inac-text-color);
     cursor: not-allowed;
   }
 `;

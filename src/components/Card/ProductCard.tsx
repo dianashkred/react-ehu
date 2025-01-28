@@ -11,7 +11,7 @@ const ProductCardContainer = styled.div`
   text-align: left;
   border: 1px solid rgba(53, 184, 190, 0.15);
   border-radius: 5px;
-  background-color: white;
+  background-color: var(--background-color);
   width: 500px;
   margin: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -44,14 +44,14 @@ const ProductName = styled.h3`
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 0.6;
-  color: #08090a;
+  color: var(--text-color-black);
   margin: 0;
 `;
 
 const ProductPrice = styled.span`
   font-size: 16px;
   font-weight: 400;
-  color: #35b8be;
+  color: var(--text-color-turquoise);
   line-height: 20px;
   margin-left: 1rem;
   white-space: nowrap;
@@ -61,7 +61,7 @@ const ProductDescription = styled.p`
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  color: #546285;
+  color: var(--text-color);
   letter-spacing: 0.32px;
   margin: 0.8rem 0;
 `;

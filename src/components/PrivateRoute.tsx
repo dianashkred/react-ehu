@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-interface PrivateRouteProps {
-  children?: JSX.Element;
-}
 
-const PrivateRoute = ({ children }: PrivateRouteProps) => {
+
+const PrivateRoute:FC = () => {
   const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
   const location = useLocation();
 
@@ -16,7 +14,7 @@ const PrivateRoute = ({ children }: PrivateRouteProps) => {
     return <Navigate to="/login" state={{ from: location.pathname }} />;
   }
 
-  return children || <Outlet />;
+  return  <Outlet />;
 };
 
 export default PrivateRoute;

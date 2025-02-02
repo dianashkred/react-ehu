@@ -75,12 +75,20 @@ const ProductActions = styled.div`
 const QuantityInput = styled.input`
   width: 60px;
   height: 50px;
-  border: 1px solid #dddddd;
+  border: 1px solid var(--border-input-color);
   border-radius: 5px;
   text-align: center;
   font-size: 16px;
   font-weight: 400;
   line-height: 27px;
+  background-color: var(--background-input);
+  color: var(--text-color-black);
+
+  &:focus {
+    outline: none;
+    border-color: var(--text-color-turquoise); 
+    box-shadow: 0 0 5px var(--text-color-turquoise);
+  }
 `;
 
 interface Product {

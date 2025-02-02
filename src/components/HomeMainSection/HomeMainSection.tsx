@@ -18,7 +18,7 @@ const HomeMainSection: FC = () => {
         <ButtonContainer>
           <Button
             label="Place an Order"
-            to="/menu"
+            to="menu"
             isActive={true}
             style={{ width: '170px' }}
             //onClick={() => console.log('Order button clicked')}

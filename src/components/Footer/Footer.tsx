@@ -16,6 +16,7 @@ const FooterContainer = styled.footer`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: left;
+
 `;
 
 const FooterContent = styled.div`
@@ -132,7 +133,7 @@ const SocialIconLink = styled.a`
   justify-content: center;
   width: 40px;
   height: 40px;
-  border: var(--border-icon);
+  border: 1px solid var(--border-icon);
   border-radius: 50%;
   transition: background-color 0.3s, transform 0.3s;
   background-color: var(--background-color-icon);
@@ -163,7 +164,7 @@ const Footer: FC = () => {
           <FooterLinksGroup>
             <FooterHeading>Company</FooterHeading>
             <FooterLink to="/">Home</FooterLink>
-            <FooterLink to="/order">Order</FooterLink>
+            <FooterLink to="order">Order</FooterLink>
             <FooterLink to="#">FAQ</FooterLink>
             <FooterLink to="#">Contact</FooterLink>
           </FooterLinksGroup>

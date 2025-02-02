@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { RootState, AppDispatch } from '../../store';
 import { login, updateUsername, updatePassword, setErrorMessage } from '../../features/user/userSlice';
 import { fetchUsers } from '../../features/firebase/firebaseSlice';
@@ -10,9 +10,13 @@ import Button from '../Button/Button';
 const Login: FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Если в state передан параметр from – перенаправим пользователя туда, иначе по умолчанию на главную (/)
+  const from = location.state?.from || '/';
+
   
   const { users, status } = useSelector((state: RootState) => state.firebase);
- 
   const { username, password, errorMessage } = useSelector((state: RootState) => state.user);
   const user = users.find((user: { login: string; password: string }) => user.login === username && user.password === password);
 
@@ -21,18 +25,26 @@ const Login: FC = () => {
     if (status === 'idle') {
       dispatch(fetchUsers());
     }
+  
   }, [dispatch, status]);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (user) {
       dispatch(login({ username}));
-      navigate('/order');
+      navigate(from);
     } else {
       dispatch(setErrorMessage('Invalid username or password'));
     }
   };
   
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement> | React.FormEvent<HTMLFormElement>) => {   
+    e.preventDefault(); 
+    dispatch(updateUsername(''));
+    dispatch(updatePassword(''));
+    dispatch(setErrorMessage(null));
+  };
 
   return (
     <PageContainer>
@@ -67,8 +79,9 @@ const Login: FC = () => {
             />
             <Button
               label="Cancel"
-              isActive={false}
-              onClick={() => window.location.reload()}
+              isActive={true}
+              onClick={handleCancel}
+              variant="transparent"
             />
           </ButtonGroup>
         </Form>
@@ -128,8 +141,17 @@ const Input = styled.input`
   width: 350px;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-input-color); 
   font-size: 14px;
+  background-color: var(--background-input);
+  color: var(--text-color-black);
+  transition: border 0.3s, box-shadow 0.3s;
+
+  &:focus {
+    outline: none;
+    border-color: var(--text-color-turquoise); 
+    box-shadow: 0 0 5px var(--text-color-turquoise);
+  }
 `;
 
 const ButtonGroup = styled.div`

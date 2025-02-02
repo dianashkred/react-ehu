@@ -7,11 +7,17 @@ interface ButtonProps {
   label: string;
   isActive?: boolean;
   to?: string;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement> | React.FormEvent<HTMLFormElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   style?: CSSProperties;
+  variant?: 'primary' | 'transparent';
 }
 
-const StyledButton = styled.button`
+interface StyledButtonProps {
+  $variant: 'primary' | 'transparent';
+}
+
+
+const StyledButton = styled.button<StyledButtonProps>`
   width: 140px;
   height: 52px;
   padding: 10px 20px;
@@ -21,24 +27,36 @@ const StyledButton = styled.button`
   border: none;
   background-color: var(--button-bg-color);
   color: var(--button-ac-text-color);
-  transition: background-color 0.3s;
   font-weight: 400;
   line-height: 27px;
   letter-spacing: 0.36px;
+  transition: background-color 0.3s;
 
-  &:hover {
-    background-color: var(--button-bg-hover-color);
-  }
+  ${({ $variant }) =>
+    $variant === 'primary'
+      ? `
+      background-color: var(--button-bg-color);
+      color: var(--button-ac-text-color);
+      &:hover {
+        background-color: var(--button-bg-hover-color);
+      } `
+      : `
+      background-color: transparent;
+      border: 1px solid var(--border-botton-inac);
+      color: var(--button-inac-text-color);
+      &:hover {
+        background-color: var(--button-bg-hover-color);
+      }
+    `}
 
   &.inactive {
     background-color: transparent;
-    border: var(--border-botton-inac);
+    border: 1px solid var(--border-botton-inac);
     color: var(--button-inac-text-color);
     cursor: not-allowed;
-  }
-`;
+  } `;
 
-const Button: FC<ButtonProps> = ({ label, isActive = true, to, onClick, style }) => {
+const Button: FC<ButtonProps> = ({ label, isActive = true, to, onClick, style, variant = 'primary' }) => {
   const navigate = useNavigate();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -54,6 +72,7 @@ const Button: FC<ButtonProps> = ({ label, isActive = true, to, onClick, style })
       onClick={isActive ? handleClick : undefined}
       disabled={!isActive}
       style={style}
+      $variant={variant} 
     >
       {label}
     </StyledButton>

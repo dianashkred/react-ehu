@@ -1,0 +1,79 @@
+* {
+  box-sizing: border-box;
+
+}
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  --background-color: #ffffff;
+  --background-color-footer: #f4fcfe;
+  --background-color-turquoise: #35b8be;
+  --background-color-icon: none;
+
+  --text-color: #546285;
+  --text-color-turquoise: #35b8be ;
+  --text-color-header: #28224B;
+  --text-color-black: #08090A;
+  --text-color-footer-bottom: #353448;
+  --text-color-hover: #35b8be;
+  --border-icon: rgba(126, 130, 143, 0.3);
+
+  --button-bg-color: #35b8be;
+  --button-ac-text-color: #ffffff;
+  --button-inac-text-color: #222222;
+  --button-bg-hover-color: #005a4f;
+  --border-botton-inac: #dddddd;
+
+  --background-home: url('src/assets/background/home.svg');
+  --background-mlo: url('src/assets/background/menu-login-order.svg');
+  --background-footer: url('src/assets/background/footer.svg');
+  --background-input: rgba(250, 250, 250, 1);
+  --border-input-color: rgba(221, 221, 221, 1); 
+}
+
+
+
+[data-theme='dark'] {
+  --background-color: #1e1e1e;
+  --background-color-footer: #1e1e1e;
+  --background-color-turquoise: #005a4f;
+  --background-color-icon: #ffffffd6;
+
+  --text-color: #909190;
+  --text-color-heading: #ffffff;
+  --text-color-header: #dfdfdfdc;
+  --text-color-black: #d7d7d7;
+  --text-color-turquoise: #005a4f ;
+  --text-color-hover: #005a505c;
+  --text-color-footer-bottom: #d6cece;
+  
+  --border-icon: rgba(214, 211, 211, 0.699);
+  --button-bg-color: #005a4f;
+  --button-bg-hover-color: #00443ca0;
+  --button-inac-text-color: #ffffffd3;
+  --button-ac-text-color: #0e0d0d;
+  --border-botton-inac: #dddddd9e;
+  --background-home: none;
+  --background-mlo: none;
+  --background-input: #222;
+  --border-input-color: #444; 
+  --background-footer: url('src/assets/background/footer_dark.svg');
+
+}
+
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: Inter, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+a {
+  text-decoration: none;
+}
+

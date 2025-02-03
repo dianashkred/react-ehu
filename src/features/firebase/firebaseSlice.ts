@@ -22,8 +22,8 @@ const initialState: FirebaseState = {
 
 export const fetchUsers = createAsyncThunk('firebase/fetchUsers', async () => {
   const usersRef = ref(database, 'users');
-  const snapshot = await get(usersRef);  // Загружаем данные из базы
-  const data = snapshot.val(); // Преобразуем данные в объект
+  const snapshot = await get(usersRef); 
+  const data = snapshot.val(); 
   return data ? Object.keys(data).map((key) => ({ id: key, ...data[key] })) : [];
 });
 

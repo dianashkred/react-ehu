@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, updateTemporaryQuantity } from '../../features/cart/cartSlice';
-import { RootState } from '../../store';
+import { addToCart, updateTemporaryQuantity, clearTemporaryQuantity } from '../../features/cart/cartSlice';
+import { RootState } from '../../features/store';
 import styled from 'styled-components';
 import Button from '../Button/Button';
 
@@ -101,8 +101,8 @@ interface Product {
 
 interface ProductCardProps {
   product: Product;
+};
 
-}
 
 const ProductCard: FC<ProductCardProps> = ({ product}) => {
   const dispatch = useDispatch();
@@ -122,6 +122,7 @@ const ProductCard: FC<ProductCardProps> = ({ product}) => {
       image: product.image,
       quantity,
     }));
+    dispatch(clearTemporaryQuantity(product.id)); 
   };
 
   return (

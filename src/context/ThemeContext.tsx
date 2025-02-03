@@ -20,14 +20,12 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     return (localStorage.getItem("theme") as Theme) || systemTheme;
   });
 
+  //Сохранение темы в localStorage
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
   
-  /*useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme); 
-  }, [theme]);*/
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };

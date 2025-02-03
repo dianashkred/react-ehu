@@ -4,7 +4,7 @@ import App from './App';
 import './index.css';
 import { ThemeProvider } from './context/ThemeContext';
 import { Provider } from 'react-redux';
-import { store } from './store';
+import { store } from './features/store';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {

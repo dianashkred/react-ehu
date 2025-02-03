@@ -14,7 +14,7 @@
       "@components/*": ["src/components/*"]
       }
     },
-    "include": ["src","src/global.d.ts"],
+    "include": ["src","src/global.d.ts", "src/setupTests.ts"],
     "exclude": ["node_modules"]
   
   

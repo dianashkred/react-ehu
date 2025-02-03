@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { RootState, AppDispatch } from '../../store';
+import { RootState, AppDispatch } from '../../features/store';
 import { login, updateUsername, updatePassword, setErrorMessage } from '../../features/user/userSlice';
 import { fetchUsers } from '../../features/firebase/firebaseSlice';
 import styled from 'styled-components';

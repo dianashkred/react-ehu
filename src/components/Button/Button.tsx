@@ -57,10 +57,10 @@ const StyledButton = styled.button<StyledButtonProps>`
   } `;
 
 const Button: FC<ButtonProps> = ({ label, isActive = true, to, onClick, style, variant = 'primary' }) => {
-  const navigate = useNavigate();
-
+  const navigate = useNavigate?.();
+  
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (to) {
+    if (to && navigate) {
       navigate(to);
     } else if (onClick) {
       onClick(e);

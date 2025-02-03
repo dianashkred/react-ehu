@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+//структура товара в корзине
 interface CartItem {
     id: string;
     quantity: number;
@@ -9,6 +10,7 @@ interface CartItem {
     totalItemPrice: number;
   }
   
+  //структура состояния корзины
   interface CartState {
     items: CartItem[]; 
     totalQuantity: number; 
@@ -42,7 +44,8 @@ interface CartItem {
         state.totalQuantity += quantity;
         state.totalPrice += totalItemPrice;
       
-      
+        delete state.temporaryQuantities[id];
+
       },
   
       removeFromCart(state, action: PayloadAction<string>) {
@@ -63,6 +66,9 @@ interface CartItem {
       ) {
         const { id, quantity } = action.payload;
         state.temporaryQuantities[id] = quantity;
+      },
+      clearTemporaryQuantity(state, action: PayloadAction<string>) {
+        delete state.temporaryQuantities[action.payload];
       },
 
       updateQuantity(
@@ -95,5 +101,5 @@ interface CartItem {
     },
   });
   
-  export const { addToCart, removeFromCart, updateTemporaryQuantity, updateQuantity, clearCart } = cartSlice.actions;
+  export const { addToCart, removeFromCart, updateTemporaryQuantity, updateQuantity, clearCart, clearTemporaryQuantity } = cartSlice.actions;
   export default cartSlice.reducer;

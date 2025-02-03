@@ -25,6 +25,7 @@ const initialState: MenuState = {
     selectedCategory: '',
 };
 
+//асинхронный action
 export const fetchMenuItems = createAsyncThunk('menu/fetchMenuItems', async () => {
   const response = await fetch('https://65de35f3dccfcd562f5691bb.mockapi.io/api/v1/meals');
   const data = await response.json();
@@ -50,7 +51,7 @@ const menuSlice = createSlice({
         state.visibleItems = 6;
       },
     },
-  extraReducers: (builder) => {
+  extraReducers: (builder) => {//обработка загрузки данных 
     builder
       .addCase(fetchMenuItems.pending, (state) => {
         state.status = 'loading';

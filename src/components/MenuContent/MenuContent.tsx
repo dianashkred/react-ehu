@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import type { AppDispatch, RootState } from '../../store';
+import type { AppDispatch, RootState } from '../../features/store';
 import { fetchMenuItems, setVisibleItems, setSelectedCategory } from '../../features/menu/menuSlice';
 import Button from '../Button/Button';
 import ProductCard from '../Card/ProductCard';
@@ -89,6 +89,7 @@ const MenuContent: FC = () => {
       dispatch(fetchMenuItems());
     }
   }, [status, dispatch]);
+  
 
   const filteredItems = items.filter((item) => item.category === selectedCategory);
 

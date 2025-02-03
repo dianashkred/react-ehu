@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { RootState } from '../../store';
+import { RootState } from '../../features/store';
 import logoIcon from '../../assets/icons/logo.svg';
 import cartIcon from '../../assets/icons/cart-icon.svg';
 import ThemeToggle from "../ThemeToggle/ThemeToggle";

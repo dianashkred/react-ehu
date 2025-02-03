@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../store';
+import { RootState, AppDispatch } from '../../features/store';
 import { removeFromCart, updateQuantity, clearCart } from '../../features/cart/cartSlice';
 import { updateStreet, updateHouse, setOrderError, setOrderPlaced, clearOrderError, resetOrderState, } from '../../features/order/orderSlice';
 import Button from '../Button/Button';
@@ -11,7 +11,7 @@ import OrderItemCard from '../Card/OrderItemCard';
 
 
 const OrderMainSection: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const { street, house, error, orderPlaced } = useSelector((state: RootState) => state.order);
 
@@ -72,10 +72,11 @@ const OrderMainSection: FC = () => {
       <Form>
       {error && <ErrorText>{error}</ErrorText>}
 
-      <OrderForm>
+      <OrderForm onSubmit={handleSubmitOrder}>
       <Label htmlFor="Street">Street</Label>
       <OrderInput
           type="text"
+          placeholder="Street"
           value={street}
           onChange={(e) => dispatch(updateStreet(e.target.value))}
           required
@@ -85,6 +86,7 @@ const OrderMainSection: FC = () => {
         <Label htmlFor="Street">House</Label>
         <OrderInput
           type="text"
+          placeholder="House"
           value={house}
           onChange={(e) => dispatch(updateHouse(e.target.value))}
           required
@@ -172,7 +174,7 @@ const Form = styled.form`
   gap: 15px;
 `;
 
-const OrderForm = styled.form`
+const OrderForm = styled.div`
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -203,6 +205,11 @@ const OrderInput = styled.input`
     border-color: var(--text-color-turquoise); 
     box-shadow: 0 0 5px var(--text-color-turquoise);
   }
+    &::placeholder {
+    color: transparent;
+  }
+
+
 `;
 
 
